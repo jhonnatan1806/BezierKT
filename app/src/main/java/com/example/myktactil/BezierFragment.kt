@@ -78,13 +78,11 @@ class BezierFragment : Fragment() {
             isAntiAlias = true
         }
 
-        val padding = 50f
-
         // Dibujar ejes
         drawAxes(mCanvas, axisPaint)
 
         // Dibujar la curva de Bézier con los puntos inicializados
-        drawBezierCurve(mCanvas, bezierPaint, controlPointPaint, padding)
+        drawBezierCurve(mCanvas, bezierPaint, controlPointPaint)
 
         // Actualizar el ImageView con el bitmap
         binding.imgView.setImageBitmap(mBitmap)
@@ -115,7 +113,7 @@ class BezierFragment : Fragment() {
                     mCanvas.drawColor(Color.WHITE)
                     drawGrid(mCanvas)
                     drawAxes(mCanvas, axisPaint)
-                    drawBezierCurve(mCanvas, bezierPaint, controlPointPaint, padding)
+                    drawBezierCurve(mCanvas, bezierPaint, controlPointPaint)
 
                     // Actualizar el ImageView con el nuevo bitmap
                     binding.imgView.setImageBitmap(mBitmap)
@@ -192,7 +190,7 @@ class BezierFragment : Fragment() {
     }
 
     // Dibujar la curva de Bézier y los puntos de control
-    private fun drawBezierCurve(canvas: Canvas, paint: Paint, controlPointPaint: Paint, padding: Float) {
+    private fun drawBezierCurve(canvas: Canvas, paint: Paint, controlPointPaint: Paint) {
         val height = canvas.height.toFloat()
 
         if (nodosList.size > 2) {
