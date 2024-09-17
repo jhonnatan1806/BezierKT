@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/bezierFragment">
+
+    <fragment
+        android:id="@+id/bezierFragment"
+        android:name="com.example.myktactil.BezierFragment"
+        android:label="Bezier Fragment"
+        tools:layout="@layout/fragment_bezier" >
+        <action
+            android:id="@+id/action_bezierFragment_to_bezierPointsFragment"
+            app:destination="@id/bezierPointsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bezierPointsFragment"
+        android:name="com.example.myktactil.BezierPointsFragment"
+        android:label="Bezier Points Fragment"
+        tools:layout="@layout/fragment_bezier_points" />
+</navigation>
