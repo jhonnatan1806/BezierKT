@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog  // Asegúrate de importar esto
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myktactil.databinding.FragmentBezierPointsBinding
@@ -35,10 +36,17 @@ class BezierPointsFragment : Fragment() {
         // Si nodosList no es nulo, configurar el RecyclerView
         nodosList?.let { nodos ->
             adapter = BezierPointsAdapter(nodos) { nodo ->
-                if(nodos.size > 3){
-                    eliminarNodo(nodo)
-                }
-                else{
+                if (nodos.size > 3) {
+                    // Mostrar diálogo de confirmación
+                    val builder = AlertDialog.Builder(requireContext())
+                    builder.setTitle("Confirmar eliminación")
+                    builder.setMessage("¿Estás seguro de que deseas eliminar ${nodo.nombre}?")
+                    builder.setPositiveButton("Eliminar") { _, _ ->
+                        eliminarNodo(nodo)
+                    }
+                    builder.setNegativeButton("Cancelar", null)
+                    builder.show()
+                } else {
                     // Mostrar mensaje de error
                     Toast.makeText(requireContext(), "Debe haber al menos 3 nodos", Toast.LENGTH_SHORT).show()
                 }
@@ -58,6 +66,10 @@ class BezierPointsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        // Enviar la lista actualizada de nodos al fragmento anterior
+        val resultBundle = Bundle()
+        resultBundle.putParcelableArrayList("updatedNodosList", nodosList)
+        parentFragmentManager.setFragmentResult("requestKey", resultBundle)
         _binding = null
     }
 }

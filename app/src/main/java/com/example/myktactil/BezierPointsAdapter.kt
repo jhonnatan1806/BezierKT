@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class BezierPointsAdapter(
@@ -33,7 +34,12 @@ class BezierPointsAdapter(
 
         // Configura el botón de eliminar
         holder.deleteButton.setOnClickListener {
-            onDeleteClick(nodo) // Llama a la función que elimina el nodo
+            if (puntosList.size > 3) {
+                onDeleteClick(nodo)
+            } else {
+                // Mostrar mensaje de error
+                Toast.makeText(holder.itemView.context, "Debe haber al menos 3 nodos", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

@@ -25,6 +25,15 @@ class BezierFragment : Fragment() {
     private val bezier = Bezier()
     private var puntosInicializados = false // Para controlar si los puntos ya han sido agregados
 
+    // Variables para el Bitmap y Canvas (deben ser globales)
+    private lateinit var mBitmap: Bitmap
+    private lateinit var mCanvas: Canvas
+
+    // Paints globales
+    private lateinit var axisPaint: Paint
+    private lateinit var bezierPaint: Paint
+    private lateinit var controlPointPaint: Paint
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,14 +58,14 @@ class BezierFragment : Fragment() {
         }
 
         // Crear el Bitmap y Canvas
-        val mBitmap = Bitmap.createBitmap(500, 500, Bitmap.Config.ARGB_8888)
-        val mCanvas = Canvas(mBitmap)
+        mBitmap = Bitmap.createBitmap(500, 500, Bitmap.Config.ARGB_8888)
+        mCanvas = Canvas(mBitmap)
 
         // Dibujar cuadrículas de fondo
         drawGrid(mCanvas)
 
         // Configurar Paints para ejes, curva y puntos de control
-        val axisPaint = Paint().apply {
+        axisPaint = Paint().apply {
             color = Color.parseColor("#808080") // Gris oscuro
             style = Paint.Style.STROKE
             strokeWidth = 3F
@@ -64,7 +73,7 @@ class BezierFragment : Fragment() {
         }
 
         // Paint para la curva de Bézier
-        val bezierPaint = Paint().apply {
+        bezierPaint = Paint().apply {
             color = Color.RED
             style = Paint.Style.STROKE
             strokeWidth = 6F
@@ -72,7 +81,7 @@ class BezierFragment : Fragment() {
         }
 
         // Paint para los puntos de control
-        val controlPointPaint = Paint().apply {
+        controlPointPaint = Paint().apply {
             color = Color.BLUE
             style = Paint.Style.FILL
             isAntiAlias = true
@@ -139,6 +148,25 @@ class BezierFragment : Fragment() {
             mCanvas.drawColor(Color.WHITE)
             drawGrid(mCanvas)
             drawAxes(mCanvas, axisPaint)
+            drawBezierCurve(mCanvas, bezierPaint, controlPointPaint)
+            // Actualizar el ImageView con el nuevo bitmap
+            binding.imgView.setImageBitmap(mBitmap)
+        }
+
+        // Escuchar los resultados del BezierPointsFragment
+        parentFragmentManager.setFragmentResultListener("requestKey", viewLifecycleOwner) { _, bundle ->
+            val updatedList = bundle.getParcelableArrayList<Nodo>("updatedNodosList")
+            if (updatedList != null) {
+                nodosList.clear()
+                nodosList.addAll(updatedList)
+                // Redibujar el canvas con los nuevos puntos
+                mCanvas.drawColor(Color.WHITE)
+                drawGrid(mCanvas)
+                drawAxes(mCanvas, axisPaint)
+                drawBezierCurve(mCanvas, bezierPaint, controlPointPaint)
+                // Actualizar el ImageView con el nuevo bitmap
+                binding.imgView.setImageBitmap(mBitmap)
+            }
         }
 
     }
@@ -148,9 +176,8 @@ class BezierFragment : Fragment() {
         val scaleFactor = 3f
         // Añadir nodos solo si la lista está vacía
         if (nodosList.isEmpty()) {
-            //nodosList.add(Nodo(idNodo = nodoCount++, x = padding, y = padding, nombre = "nodo1"))
-            //nodosList.add(Nodo(idNodo = nodoCount++, x = 100f * scaleFactor + padding, y = padding, nombre = "nodo2"))
-            //nodosList.add(Nodo(idNodo = nodoCount++, x = 100f * scaleFactor + padding, y = 100f * scaleFactor + padding, nombre = "nodo3"))
+            // Puedes inicializar nodos aquí si lo deseas
+            // nodosList.add(Nodo(idNodo = nodoCount++, x = ..., y = ..., nombre = "nodo1"))
         }
     }
 
