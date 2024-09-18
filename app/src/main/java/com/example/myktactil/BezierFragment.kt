@@ -53,8 +53,7 @@ class BezierFragment : Fragment() {
 
         // Inicializar puntos solo una vez
         if (!puntosInicializados) {
-            inicializarPuntos()
-            puntosInicializados = true // Los puntos ya fueron inicializados
+            puntosInicializados = true
         }
 
         // Crear el Bitmap y Canvas
@@ -171,15 +170,6 @@ class BezierFragment : Fragment() {
 
     }
 
-    private fun inicializarPuntos() {
-        val padding = 50f
-        val scaleFactor = 3f
-        // Añadir nodos solo si la lista está vacía
-        if (nodosList.isEmpty()) {
-            // Puedes inicializar nodos aquí si lo deseas
-            // nodosList.add(Nodo(idNodo = nodoCount++, x = ..., y = ..., nombre = "nodo1"))
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

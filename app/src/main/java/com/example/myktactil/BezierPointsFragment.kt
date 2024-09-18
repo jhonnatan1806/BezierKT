@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog  // Asegúrate de importar esto
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myktactil.databinding.FragmentBezierPointsBinding
@@ -16,7 +16,6 @@ class BezierPointsFragment : Fragment() {
     private val binding get() = _binding!!
     private var nodosList: ArrayList<Nodo>? = null
 
-    // Declaración del adaptador
     private lateinit var adapter: BezierPointsAdapter
 
     override fun onCreateView(
@@ -61,7 +60,7 @@ class BezierPointsFragment : Fragment() {
     // Función para eliminar un nodo
     private fun eliminarNodo(nodo: Nodo) {
         nodosList?.remove(nodo)
-        adapter.notifyDataSetChanged() // Asegúrate de notificar cambios al adaptador
+        adapter.notifyDataSetChanged()
     }
 
     override fun onDestroyView() {
