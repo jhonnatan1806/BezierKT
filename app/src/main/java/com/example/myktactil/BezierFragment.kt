@@ -46,7 +46,7 @@ class BezierFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inicialización de la Toolbar
+        // Inicializar el Toolbar
         val toolbar: Toolbar = requireActivity().findViewById(R.id.toolbar)
         (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "PC1 - Bezier"

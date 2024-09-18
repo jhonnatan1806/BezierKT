@@ -32,7 +32,7 @@ class BezierPointsAdapter(
         holder.pointX.text = "X: ${nodo.x}"
         holder.pointY.text = "Y: ${nodo.y}"
 
-        // Configura el botón de eliminar
+        // Configurar el botón de eliminar
         holder.deleteButton.setOnClickListener {
             if (puntosList.size > 3) {
                 onDeleteClick(nodo)

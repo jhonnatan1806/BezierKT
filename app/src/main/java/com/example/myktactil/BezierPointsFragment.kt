@@ -51,13 +51,13 @@ class BezierPointsFragment : Fragment() {
                 }
             }
 
-            // Configura el RecyclerView con el adaptador
+            // Configurar el RecyclerView con el adaptador
             binding.recyclerViewBezierPoints.layoutManager = LinearLayoutManager(requireContext())
             binding.recyclerViewBezierPoints.adapter = adapter
         }
     }
 
-    // Función para eliminar un nodo
+    // Funcion para eliminar un nodo
     private fun eliminarNodo(nodo: Nodo) {
         nodosList?.remove(nodo)
         adapter.notifyDataSetChanged()
